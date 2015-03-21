@@ -1,0 +1,239 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:background="@drawable/calcbg">
+
+    <TextView
+        android:id="@+id/calculatorDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="60sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calculatorDisplay"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/linearLayout">
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="1">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/sin_btn"
+                android:id="@+id/sin_btn"
+                android:layout_weight="0.3333333"
+                android:onClick="sinOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cos_btn"
+                android:id="@+id/cos_btn"
+                android:layout_weight="0.333333333"
+                android:onClick="cosOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/tan_btn"
+                android:id="@+id/tan_btn"
+                android:layout_weight="0.33333333333"
+                android:onClick="tanOnClick" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="1">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ac_btn"
+                android:id="@+id/ac_btn"
+                android:layout_weight="0.25"
+                android:onClick="allClear" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/c_btn"
+                android:id="@+id/c_btn"
+                android:layout_weight="0.25"
+                android:onClick="clear" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/sqrt_btn"
+                android:id="@+id/sqrt_btn"
+                android:layout_weight="0.25"
+                android:onClick="sqrtOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/plus_btn"
+                android:id="@+id/plus_btn"
+                android:layout_weight="0.25"
+                android:onClick="operatorOnClick" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="1">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/seven_btn"
+                android:id="@+id/seven_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/eight_btn"
+                android:id="@+id/eight_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/nine_btn"
+                android:id="@+id/nine_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/minus_btn"
+                android:id="@+id/minus_btn"
+                android:layout_weight="0.25"
+                android:onClick="operatorOnClick" />
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="1">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/four_btn"
+                android:id="@+id/four_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/five_btn"
+                android:id="@+id/five_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/six_btn"
+                android:id="@+id/six_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/multiply_btn"
+                android:id="@+id/multiply_btn"
+                android:layout_weight="0.25"
+                android:onClick="operatorOnClick" />
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="1">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/one_btn"
+                android:id="@+id/one_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/two_btn"
+                android:id="@+id/two_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/three_btn"
+                android:id="@+id/three_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/divide_btn"
+                android:id="@+id/divide_btn"
+                android:layout_weight="0.25"
+                android:onClick="operatorOnClick" />
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="1">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/zero_btn"
+                android:id="@+id/zero_btn"
+                android:layout_weight="0.25"
+                android:onClick="digitsOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dot_btn"
+                android:id="@+id/dot_btn"
+                android:layout_weight="0.25"
+                android:onClick="dotOnClick" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/equal_btn"
+                android:id="@+id/equal_btn"
+                android:layout_weight="0.5"
+                android:onClick="operatorOnClick" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,142 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:gravity="center"
+    android:background="@drawable/app_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/choose_app"
+        android:textColor="@android:color/white"
+        android:id="@+id/chooseapptextview"
+        android:textSize="@dimen/abc_text_size_display_2_material"
+        android:layout_above="@+id/calculatorbutton"
+        android:layout_alignLeft="@+id/calculatorbutton"
+        android:layout_alignStart="@+id/calculatorbutton"
+        android:layout_marginBottom="39dp"
+       />
+
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="@string/icon_calculator"
+        android:id="@+id/calculatorbutton"
+        android:background="#ffffc33a"
+        android:clickable="true"
+        android:textColor="@drawable/color_state_list"
+        android:textSize="@dimen/button_size"
+        android:onClick="goToCalculator"
+        android:layout_marginRight="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_alignTop="@+id/graphingbutton"
+        android:layout_toLeftOf="@+id/graphingbutton"
+        android:layout_toStartOf="@+id/graphingbutton"
+        />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="@string/icon_graphing"
+        android:id="@+id/graphingbutton"
+        android:background="#ffbde22b"
+        android:textColor="@drawable/color_state_list"
+        android:textSize="@dimen/button_size"
+        android:clickable="true"
+        android:onClick="goToGraphing"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="123dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="@string/icon_sound"
+        android:textColor="@drawable/color_state_list"
+        android:textSize="@dimen/button_size"
+        android:id="@+id/soundbutton"
+        android:clickable="true"
+        android:onClick="goToSound"
+        android:nestedScrollingEnabled="false"
+        android:background="#ffc59bd1"
+        android:layout_alignTop="@+id/graphingbutton"
+        android:layout_toRightOf="@+id/graphingbutton"
+        android:layout_toEndOf="@+id/graphingbutton"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="28dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="@string/icon_calculus"
+        android:textColor="@drawable/color_state_list"
+        android:textSize="@dimen/button_size"
+        android:id="@+id/calculusbutton"
+        android:clickable="true"
+        android:onClick="goToCalculus"
+        android:nestedScrollingEnabled="false"
+        android:background="#ff6ed1bf"
+        android:layout_below="@+id/calculatorbutton"
+        android:layout_alignLeft="@+id/calculatorbutton"
+        android:layout_alignStart="@+id/calculatorbutton"
+        android:layout_marginTop="21dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="@string/icon_fft"
+        android:textColor="@drawable/color_state_list"
+        android:textSize="@dimen/button_size"
+        android:id="@+id/fftbutton"
+        android:clickable="true"
+        android:onClick="goToFft"
+        android:nestedScrollingEnabled="false"
+        android:background="#fff69a89"
+        android:layout_alignTop="@+id/calculusbutton"
+        android:layout_toRightOf="@+id/calculatorbutton"
+        android:layout_toEndOf="@+id/calculatorbutton" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="@string/icon_live_fft"
+        android:textColor="@drawable/color_state_list"
+        android:textSize="@dimen/button_size"
+        android:id="@+id/livefftbutton"
+        android:clickable="true"
+        android:onClick="goToLiveFft"
+        android:nestedScrollingEnabled="false"
+        android:background="#ff8bacd1"
+        android:layout_alignTop="@+id/fftbutton"
+        android:layout_alignLeft="@+id/soundbutton"
+        android:layout_alignStart="@+id/soundbutton" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="@string/icon_spectogram"
+        android:textColor="@drawable/color_state_list"
+        android:textSize="@dimen/button_size"
+        android:id="@+id/spectogrambutton"
+        android:clickable="true"
+        android:onClick="goToSpectrogram"
+        android:nestedScrollingEnabled="false"
+        android:background="#fff4b4c0"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/graphingbutton"
+        android:layout_alignLeft="@+id/calculusbutton"
+        android:layout_alignStart="@+id/calculusbutton" />
+
+</RelativeLayout>

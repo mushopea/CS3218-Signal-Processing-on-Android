@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CS3218ChngXinni</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="choose_app">Choose app</string>
+    <string name="icon_calculator"></string>
+    <string name="icon_graphing"></string>
+    <string name="icon_sound"></string>
+    <string name="icon_calculus"></string>
+    <string name="icon_fft">&#xf012;</string>
+    <string name="icon_live_fft">&#xf080;</string>
+    <string name="icon_spectogram">&#xf02a;</string>
+    <string name="title_activity_calculator">CalculatorActivity</string>
+    <string name="sin_btn">sin</string>
+    <string name="cos_btn">cos</string>
+    <string name="tan_btn">tan</string>
+    <string name="ac_btn">AC</string>
+    <string name="c_btn">C</string>
+    <string name="sqrt_btn">\u221a</string>
+    <string name="dot_btn">.</string>
+    <string name="equal_btn">=</string>
+    <string name="plus_btn">+</string>
+    <string name="minus_btn">‐</string>
+    <string name="multiply_btn">x</string>
+    <string name="divide_btn">/</string>
+    <string name="zero_btn">0</string>
+    <string name="one_btn">1</string>
+    <string name="two_btn">2</string>
+    <string name="three_btn">3</string>
+    <string name="four_btn">4</string>
+    <string name="five_btn">5</string>
+    <string name="six_btn">6</string>
+    <string name="seven_btn">7</string>
+    <string name="eight_btn">8</string>
+    <string name="nine_btn">9</string>
+    <string name="title_activity_graph">graph</string>
+    <string name="sine">SIN</string>
+    <string name="cosine">COS</string>
+    <string name="Aplus">A+</string>
+    <string name="Aminus">A-</string>
+    <string name="Pplus">P+</string>
+    <string name="Pminus">P-</string>
+    <string name="Fplus">F+</string>
+    <string name="Fminus">F-</string>
+    <string name="goToMainActivity">Back to Main</string>
+    <string name="compositeFunction">Composite Function</string>
+    <string name="amplitude">Amplitude</string>
+    <string name="frequency">Frequency</string>
+    <string name="phase">Phase</string>
+    <string name="title_activity_sound">SoundActivity</string>
+    <string name="capture_sound">Capture Sound</string>
+    <string name="title_activity_calculus">CalculusActivity</string>
+
+    <!-- for FFT Activity (Tutorial 5a) -->
+    <string name="goToFFTActivity">FFT (Tutorial 5a)</string>
+    <string name="fft_activity_label">FFT</string>
+    <string name="fft">FFT</string>
+
+    <!-- for Live FFT Activity (Tutorial 5b) -->
+    <string name="goToLiveFFTActivity">Live FFT (Tutorial 5b)</string>
+    <string name="live_fft_activity_label">Live FFT on Sound</string>
+
+    <!-- for Spectrogram Activity (Tutorial 5c) -->
+    <string name="goToSpectrogramActivity">Spectrogram (Tutorial 5c)</string>
+    <string name="spectrogram_activity_label">Spectrogram</string>
+    <string name="title_activity_live_fft">LiveFFTActivity</string>
+    <string name="title_activity_spectrogram">SpectrogramActivity</string>
+
+</resources>

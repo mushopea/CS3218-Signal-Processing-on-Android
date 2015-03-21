@@ -1,0 +1,157 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/table"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:shrinkColumns="*"
+    android:stretchColumns="*" >
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/sineBtn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            android:onClick="sinePressed"
+            android:text="@string/sine"/>
+
+        <Button
+            android:id="@+id/cosineBtn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            android:onClick="cosinePressed"
+            android:text="@string/cosine"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/Aplus"
+            android:onClick="AplusPressed"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/Aminus"
+            android:onClick="AminusPressed"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/Pplus"
+            android:onClick="PplusPressed"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/Pminus"
+            android:onClick="PminusPressed"
+            />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/Fplus"
+            android:onClick="FplusPressed"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/Fminus"
+            android:onClick="FminusPressed"
+            />
+
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/goToMainActivity"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:onClick="goToMainActivity"
+            android:text="@string/goToMainActivity"
+            android:layout_span="4" />
+
+    </TableRow>
+
+    <TextView
+        android:id="@+id/displayFunction"
+        android:layout_width="match_parent"
+        android:background="#aef"
+        android:text="@string/compositeFunction"
+        android:textStyle="bold" >
+    </TextView>
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:max="10"/>
+
+    <TextView
+        android:id="@+id/seekBar1TextView"
+        android:layout_width="match_parent"
+        android:background="#aef"
+        android:textStyle="bold" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/integralTextView"
+        android:layout_width="match_parent"
+        android:background="#aef"
+        android:textStyle="bold" >
+    </TextView>
+
+    <sg.edu.nus.CS3218ChngXinni.CSurfaceViewCalculus
+        android:id="@+id/surfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:soundEffectsEnabled="true" />
+
+</TableLayout>
+

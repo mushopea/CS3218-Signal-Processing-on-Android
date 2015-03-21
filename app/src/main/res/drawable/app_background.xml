@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#ff3d2952"
+        android:endColor="#ff070707"
+        android:angle="90" />
+</shape>
+
+<!-- tiled background code -->
+<!--<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/bg"
+    android:tileMode="repeat" />
+-->
+
