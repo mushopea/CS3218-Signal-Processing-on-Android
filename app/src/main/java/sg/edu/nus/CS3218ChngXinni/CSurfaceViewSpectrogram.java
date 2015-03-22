@@ -225,10 +225,10 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
                         if (soundFFTMag[i] > mx) mx = soundFFTMag[i];
                     }
 
-                    // normalize
+                    /*// normalize
                     for (int i = 0; i < FFT_Len; i++) {
                         soundFFTMag[i] = height * 7 / 8 - soundFFTMag[i] / mx * 500;
-                    }
+                    }*/
 
                     mxIntensity = mx;
 
@@ -238,15 +238,13 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
 
                 // display the fft results
                 int xStepSz = 1;
-                int yStepSz = 1;
                 for (int i = 0; i < FFT_Len - 1; i += xStepSz) {
-                    // must change the y value to draw top to bottom
-                    for (int j = 0; j < FFT_Len - 1; j += yStepSz) {
-                        float hue = (float) soundFFTMag[j] / (float) mxIntensity;
-                        soundLinePaint3.setColor(Color.HSVToColor(new float[]{hue, (float) 1, (float) 0.5}));
-                        canvas.drawLine(i, j/yStepSz+(height*3/5), i, j/yStepSz+1+(height*3/5), soundLinePaint3);
-                    }
+                        float hue = (float) soundFFTMag[i] / (float) mxIntensity;
+                        Log.e("meow", "HUE IS: " + hue);
+                        soundLinePaint3.setColor(Color.HSVToColor(new float[]{hue*360, (float) 1, (float) 0.5}));
+                        canvas.drawLine(rectPos, i/xStepSz+(height*3/5), rectPos, i/xStepSz+1+(height*3/5), soundLinePaint3);
                 }
+
 
             // increment the moving line
             rectPos = (rectPos+1)%width;
