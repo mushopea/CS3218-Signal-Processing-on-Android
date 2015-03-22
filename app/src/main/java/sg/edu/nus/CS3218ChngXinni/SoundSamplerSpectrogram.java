@@ -9,7 +9,7 @@ import android.util.Log;
 public class SoundSamplerSpectrogram {
 
 
-    private static final int  FS = 16000;     // sampling frequency
+    private static final int  FS = 22050;     // sampling frequency
     public  AudioRecord       audioRecord;
     private int               audioEncoding = 2;
     private int               nChannels = 16;
@@ -51,7 +51,7 @@ public class SoundSamplerSpectrogram {
                 audioRecord.release();
             }
             audioRecord = new AudioRecord(1, FS, nChannels, audioEncoding, AudioRecord.getMinBufferSize(FS, nChannels, audioEncoding));
-
+            Log.e("mwo", "blabla is " + AudioRecord.getMinBufferSize(FS, nChannels, audioEncoding));
         }
         catch (Exception e) {
             Log.d("Error in Init() ", e.getMessage());

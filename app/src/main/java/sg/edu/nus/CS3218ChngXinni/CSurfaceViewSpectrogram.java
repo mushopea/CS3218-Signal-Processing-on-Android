@@ -131,7 +131,7 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
             soundLinePaint2     = new Paint();
             soundLinePaint2.setAntiAlias(true);
             soundLinePaint2.setARGB(255, 255, 0, 0); // red = soundlinepaint2
-            soundLinePaint2.setStrokeWidth(4);
+            soundLinePaint2.setStrokeWidth(6);
 
             soundLinePaint3     = new Paint();
             soundLinePaint3.setAntiAlias(true);
@@ -166,36 +166,29 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
             paint.setTextSize(20);
             canvas.drawText("'Capture Sound' to see Live Spectrogram", 250, 20, paint);
 
-            if (!soundCapture) { // just show the sound only, no FFT
-                int xStart = 0;
+            // show signal recording visualization in time domain
+            int xStart = 0;
 
-                while (xStart < width - 1) {
-                    int yStart = soundBuffer[xStart] / height * drawScale;
-                    int yStop = soundBuffer[xStart + 1] / height * drawScale;
+            while (xStart < width) {
+                int yStart = soundBuffer[xStart] / height * drawScale;
+                int yStop = soundBuffer[xStart + 1] / height * drawScale;
 
-                    int yStart1 = yStart + height / 4;
-                    int yStop1 = yStop + height / 4;
+                int yStart1 = yStart + height / 4;
+                int yStop1 = yStop + height / 4;
 
-                    //canvas.drawLine(xStart, yStart1, xStart + 1, yStop1, soundLinePaint2);
-                    canvas.drawLine(xStart, yStart1, xStart + 10, yStop1, soundLinePaint2);
-                    xStart++;
+                canvas.drawLine(xStart, yStart1, xStart + 1, yStop1, soundLinePaint2);
+
+                if (xStart % 100 == 0) {
+                    paint.setColor(Color.BLACK);
+                    paint.setTextSize(20);
+                    canvas.drawText(Integer.toString(xStart), xStart, height / 2, paint);
+                    canvas.drawText(Integer.toString(yStop), xStart, yStop1, paint);
                 }
-                rectPos = (rectPos+1)%width;
 
-            } else { // sound capture code here (perform live fft)
-                int xStart = 0;
+                xStart++;
+            }
 
-                while (xStart < width - 1) {
-                    int yStart = soundBuffer[xStart] / height * drawScale;
-                    int yStop = soundBuffer[xStart + 1] / height * drawScale;
-
-                    int yStart1 = yStart + height / 4;
-                    int yStop1 = yStop + height / 4;
-
-                    canvas.drawLine(xStart, yStart1, xStart + 1, yStop1, soundLinePaint2);
-
-                    xStart++;
-                }
+            if (soundCapture) { // show spectrogram
 
                 segmentIndex = -1;
                 FFTComputed = Boolean.valueOf(false);
@@ -256,6 +249,7 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
                     }
                 }
             }
+            rectPos = (rectPos+1)%width;
         }
 
 
