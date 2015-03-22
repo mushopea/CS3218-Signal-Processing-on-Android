@@ -13,7 +13,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
 
 public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolder.Callback {
@@ -188,7 +187,7 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
                 xStart++;
             }
 
-            if (soundCapture) { // show spectrogram
+            //if (soundCapture) { // show spectrogram
 
                 segmentIndex = -1;
                 FFTComputed = Boolean.valueOf(false);
@@ -239,16 +238,17 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
 
                 // display the fft results
                 int xStepSz = 1;
+                int yStepSz = 1;
                 for (int i = 0; i < FFT_Len - 1; i += xStepSz) {
-                    canvas.drawLine(i / xStepSz, (int) soundFFTMag[i], i / xStepSz + 1, (int) soundFFTMag[i + 1], soundLinePaint);
-
-                    if ((i - 12) % 50 == 0) {
-                        paint.setColor(Color.BLACK);
-                        paint.setTextSize(20);
-                        canvas.drawText(Integer.toString(i - FFT_Len / 2), i, height * 7 / 8, paint);
+                    // must change the y value to draw top to bottom
+                    for (int j = 0; j < FFT_Len - 1; j += yStepSz) {
+                        float hue = (float) soundFFTMag[j] / (float) mxIntensity;
+                        soundLinePaint3.setColor(Color.HSVToColor(new float[]{hue, (float) 1, (float) 0.5}));
+                        canvas.drawLine(i, j/yStepSz+(height*3/5), i, j/yStepSz+1+(height*3/5), soundLinePaint3);
                     }
                 }
-            }
+
+            // increment the moving line
             rectPos = (rectPos+1)%width;
         }
 
