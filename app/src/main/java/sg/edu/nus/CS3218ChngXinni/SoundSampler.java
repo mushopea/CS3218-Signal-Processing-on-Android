@@ -11,6 +11,7 @@ public class SoundSampler {
     private int               audioEncoding = 2;
     private int               nChannels = 16;
     private Thread            recordingThread;
+    public boolean doRecord = true;
 
     public SoundSampler(SoundActivity mAct) throws Exception
     {
@@ -29,7 +30,22 @@ public class SoundSampler {
         return;
 
     }
+    public void destroyAudioRecord() {
 
+        try {
+            if (recordingThread != null) {
+                recordingThread.join();
+            }
+        } catch (Exception e) {
+
+        }
+
+        if (audioRecord != null) {
+            audioRecord.stop();
+            audioRecord.release();
+        }
+
+    }
 
     public void init() throws Exception
     {
@@ -54,7 +70,7 @@ public class SoundSampler {
         {
             public void run()
             {
-                while (true)
+                while (doRecord)
                 {
 
                     audioRecord.read(SoundActivity.buffer, 0, SoundActivity.bufferSize);

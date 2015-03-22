@@ -15,6 +15,7 @@ public class SoundSamplerLiveFFT {
     private int               nChannels = 16;
     private LiveFFTActivity   liveFFTActivity;
     private Thread            recordingThread;
+    public boolean doRecord = true;
 
    
     public SoundSamplerLiveFFT(LiveFFTActivity mAct) throws Exception
@@ -41,7 +42,22 @@ public class SoundSamplerLiveFFT {
 
     }
 
+    public void destroyAudioRecord() {
 
+        try {
+            if (recordingThread != null) {
+                recordingThread.join();
+            }
+        } catch (Exception e) {
+
+        }
+
+        if (audioRecord != null) {
+            audioRecord.stop();
+            audioRecord.release();
+        }
+
+    }
 
     public void init() throws Exception
     {
@@ -68,7 +84,7 @@ public class SoundSamplerLiveFFT {
         {
             public void run()
             {
-                while (true)
+                while (doRecord)
                 {
 
                     audioRecord.read(LiveFFTActivity.buffer, 0, LiveFFTActivity.bufferSize);

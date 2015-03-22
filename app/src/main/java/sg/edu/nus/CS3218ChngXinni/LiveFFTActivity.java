@@ -21,7 +21,8 @@ public class LiveFFTActivity extends Activity {
         {
             surfaceView.drawFlag = Boolean.valueOf(false);
 
-            soundSamplerLiveFFT = null;
+            soundSamplerLiveFFT.doRecord = Boolean.valueOf(false);
+            soundSamplerLiveFFT.destroyAudioRecord();
             surfaceView.drawThread.join();
 
         }

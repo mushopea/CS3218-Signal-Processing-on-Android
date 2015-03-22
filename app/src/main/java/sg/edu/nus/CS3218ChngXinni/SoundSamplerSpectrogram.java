@@ -15,6 +15,7 @@ public class SoundSamplerSpectrogram {
     private int               nChannels = 16;
     private SpectrogramActivity   spectrogramActivity;
     private Thread            recordingThread;
+    public boolean doRecord = true;
 
 
     public SoundSamplerSpectrogram(SpectrogramActivity mAct) throws Exception
@@ -55,7 +56,7 @@ public class SoundSamplerSpectrogram {
             audioRecord.stop();
             audioRecord.release();
         }
-        
+
     }
 
     public void init() throws Exception
@@ -83,7 +84,7 @@ public class SoundSamplerSpectrogram {
         {
             public void run()
             {
-                while (true)
+                while (doRecord)
                 {
 
                     audioRecord.read(SpectrogramActivity.buffer, 0, SpectrogramActivity.bufferSize);

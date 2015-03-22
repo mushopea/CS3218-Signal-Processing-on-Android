@@ -19,7 +19,8 @@ public class SoundActivity extends Activity {
         try
         {
             surfaceView.drawFlag = Boolean.valueOf(false);
-            soundSampler = null;
+            soundSampler.doRecord = Boolean.valueOf(false);
+            soundSampler.destroyAudioRecord();
             surfaceView.drawThread.join();
 
         }
