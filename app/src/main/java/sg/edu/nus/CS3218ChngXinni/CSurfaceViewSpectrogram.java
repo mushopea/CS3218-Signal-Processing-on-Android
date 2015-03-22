@@ -187,7 +187,7 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
                 xStart++;
             }
 
-            //if (soundCapture) { // show spectrogram
+            if (soundCapture) { // show spectrogram
 
                 segmentIndex = -1;
                 FFTComputed = Boolean.valueOf(false);
@@ -239,12 +239,16 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
                 // display the fft results
                 int xStepSz = 1;
                 for (int i = 0; i < FFT_Len - 1; i += xStepSz) {
-                        float hue = (float) soundFFTMag[i] / (float) mxIntensity;
-                        Log.e("meow", "HUE IS: " + hue);
-                        soundLinePaint3.setColor(Color.HSVToColor(new float[]{hue*360, (float) 1, (float) 0.5}));
-                        canvas.drawLine(rectPos, i/xStepSz+(height*3/5), rectPos, i/xStepSz+1+(height*3/5), soundLinePaint3);
+                    float hue = (float) soundFFTMag[i] / (float) mxIntensity;
+                    soundLinePaint3.setColor(Color.HSVToColor(new float[]{hue * 360, (float) 1, (float) 0.5}));
+                    int y1 = (i + (height * 3 / 8));
+                    int y2 = (i + xStepSz + (height * 3 / 8));
+                    canvas.drawLine(rectPos, y1, rectPos, y2, soundLinePaint3);
+                    // Log.e("meow", "HUE IS: " + hue);
+                    // Log.e("meowmeow", "For rectPos = " + rectPos + " and i=" + i + ", Draw line from " + y1 + " to " +  y2);
                 }
 
+            }
 
             // increment the moving line
             rectPos = (rectPos+1)%width;
@@ -281,7 +285,7 @@ public class CSurfaceViewSpectrogram extends SurfaceView implements SurfaceHolde
                 Canvas localCanvas = null;
                 try
                 {
-                    localCanvas = soundSurfaceHolder.lockCanvas(new Rect(rectPos,0, rectPos+1,1150));
+                    localCanvas = soundSurfaceHolder.lockCanvas(new Rect(rectPos,0, rectPos+1,2000));
                     synchronized (soundSurfaceHolder)
                     {
                         if (localCanvas != null)

@@ -41,7 +41,22 @@ public class SoundSamplerSpectrogram {
 
     }
 
+    public void destroyAudioRecord() {
 
+        try {
+            if (recordingThread != null) {
+                recordingThread.join();
+            }
+        } catch (Exception e) {
+
+        }
+
+        if (audioRecord != null) {
+            audioRecord.stop();
+            audioRecord.release();
+        }
+        
+    }
 
     public void init() throws Exception
     {
@@ -51,7 +66,7 @@ public class SoundSamplerSpectrogram {
                 audioRecord.release();
             }
             audioRecord = new AudioRecord(1, FS, nChannels, audioEncoding, AudioRecord.getMinBufferSize(FS, nChannels, audioEncoding));
-            Log.e("mwo", "blabla is " + AudioRecord.getMinBufferSize(FS, nChannels, audioEncoding));
+            //Log.e("mwo", "blabla is " + AudioRecord.getMinBufferSize(FS, nChannels, audioEncoding));
         }
         catch (Exception e) {
             Log.d("Error in Init() ", e.getMessage());

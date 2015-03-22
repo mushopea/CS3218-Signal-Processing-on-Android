@@ -19,6 +19,9 @@ public class SpectrogramActivity extends Activity {
         try
         {
             surfaceView.drawFlag = Boolean.valueOf(false);
+            soundSamplerSpectrogram.destroyAudioRecord();
+            soundSamplerSpectrogram = null;
+
             surfaceView.drawThread.join();
 
         }
