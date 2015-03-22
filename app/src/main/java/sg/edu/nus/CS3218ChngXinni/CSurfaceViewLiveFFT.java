@@ -9,6 +9,7 @@ import android.graphics.Paint.Style;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -135,7 +136,7 @@ public class CSurfaceViewLiveFFT extends SurfaceView implements SurfaceHolder.Ca
             soundLinePaint3.setARGB(255, 0, 255, 255); // cyan
             soundLinePaint3.setStrokeWidth(3);
 
-            soundBuffer          = new short[2048];
+            soundBuffer          = new short[1024];
 
             soundBackgroundImage = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
 
@@ -167,7 +168,6 @@ public class CSurfaceViewLiveFFT extends SurfaceView implements SurfaceHolder.Ca
                 int xStart = 0;
 
                 while (xStart < width - 1) {
-
                     int yStart = soundBuffer[xStart] / height * drawScale;
                     int yStop = soundBuffer[xStart + 1] / height * drawScale;
 
@@ -190,7 +190,6 @@ public class CSurfaceViewLiveFFT extends SurfaceView implements SurfaceHolder.Ca
                 int xStart = 0;
 
                 while (xStart < width - 1) {
-
                     int yStart = soundBuffer[xStart] / height * drawScale;
                     int yStop = soundBuffer[xStart + 1] / height * drawScale;
 
