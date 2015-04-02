@@ -1,18 +1,38 @@
 package sg.edu.nus.CS3218ChngXinni;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class ConvolutionTimeActivity extends ActionBarActivity {
+    public  static          CSurfaceViewConvolutionTime   	surfaceView;
+    //public  static short[]  buffer;
+    public  static int      bufferSize;     // in bytes
+
+    public void goToMainActivity(View view){
+        try
+        {
+            surfaceView.drawFlag = Boolean.valueOf(false);
+            surfaceView.drawThread.join();
+        }
+        catch (InterruptedException localInterruptedException)
+        {
+        }
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_convolution_time);
+
+        surfaceView = (CSurfaceViewConvolutionTime)findViewById(R.id.CSurfaceViewConvolutionTime);
+        //surfaceView.drawThread.setBuffer(buffer);
     }
+
 
 
     @Override
