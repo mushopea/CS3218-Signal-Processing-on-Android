@@ -12,6 +12,7 @@
     <string name="icon_fft">&#xf012;</string>
     <string name="icon_live_fft">&#xf080;</string>
     <string name="icon_spectogram">&#xf02a;</string>
+    <string name="icon_convolution">&#xf00a;</string>
     <string name="title_activity_calculator">CalculatorActivity</string>
     <string name="sin_btn">sin</string>
     <string name="cos_btn">cos</string>
@@ -67,5 +68,7 @@
     <string name="spectrogram_activity_label">Spectrogram</string>
     <string name="title_activity_live_fft">LiveFFTActivity</string>
     <string name="title_activity_spectrogram">SpectrogramActivity</string>
+    <string name="title_activity_convolution">ConvolutionActivity</string>
+    <string name="title_activity_convolution_time">ConvolutionTimeActivity</string>
 
 </resources>

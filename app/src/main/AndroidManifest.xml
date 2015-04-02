@@ -75,6 +75,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sg.edu.nus.CS3218ChngXinni.MainActivity" />
         </activity>
+        <activity
+            android:name=".ConvolutionActivity"
+            android:label="@string/title_activity_convolution"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sg.edu.nus.CS3218ChngXinni.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ConvolutionTimeActivity"
+            android:label="@string/title_activity_convolution_time"
+            android:parentActivityName=".ConvolutionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sg.edu.nus.CS3218ChngXinni.ConvolutionActivity" />
+        </activity>
     </application>
 
 </manifest>

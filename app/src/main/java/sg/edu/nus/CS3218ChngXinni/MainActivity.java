@@ -1,17 +1,15 @@
 package sg.edu.nus.CS3218ChngXinni;
 
-import android.graphics.PorterDuff;
+import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.content.Intent;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -36,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
         liveFftButton.setTypeface(font);
         Button spectogramButton = (Button) findViewById(R.id.spectogrambutton);
         spectogramButton.setTypeface(font);
+        Button convolutionButton = (Button) findViewById(R.id.convolutionbutton);
+        convolutionButton.setTypeface(font);
 
         // choose app text view + open sans font
         Typeface openSans = Typeface.createFromAsset(this.getAssets(), "fonts/OpenSans-Light.ttf");
@@ -129,5 +129,14 @@ public class MainActivity extends ActionBarActivity {
         Intent intent7;
         intent7 = new Intent(this, SpectrogramActivity.class);
         startActivity(intent7);
+    }
+
+    // Tutorial on Convolution & Correlation (Tutorial 6)
+    public void goToConvolution(View view) {
+        Log.e("Meow", "goToConvolution function triggered");
+
+        Intent intent8;
+        intent8 = new Intent(this, ConvolutionActivity.class);
+        startActivity(intent8);
     }
 }

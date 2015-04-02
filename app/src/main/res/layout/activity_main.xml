@@ -117,7 +117,7 @@
         android:clickable="true"
         android:onClick="goToLiveFft"
         android:nestedScrollingEnabled="false"
-        android:background="#ff8bacd1"
+        android:background="#ff6cc5e9"
         android:layout_alignTop="@+id/fftbutton"
         android:layout_alignLeft="@+id/soundbutton"
         android:layout_alignStart="@+id/soundbutton" />
@@ -138,5 +138,21 @@
         android:layout_below="@+id/graphingbutton"
         android:layout_alignLeft="@+id/calculusbutton"
         android:layout_alignStart="@+id/calculusbutton" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="@string/icon_convolution"
+        android:textColor="@drawable/color_state_list"
+        android:textSize="@dimen/button_size"
+        android:id="@+id/convolutionbutton"
+        android:clickable="true"
+        android:onClick="goToConvolution"
+        android:nestedScrollingEnabled="true"
+        android:background="#ff95a6ff"
+        android:layout_alignTop="@+id/spectogrambutton"
+        android:layout_alignLeft="@+id/fftbutton"
+        android:layout_alignStart="@+id/fftbutton" />
 
 </RelativeLayout>
