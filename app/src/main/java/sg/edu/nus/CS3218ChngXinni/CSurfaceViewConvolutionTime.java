@@ -136,7 +136,21 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
             // * * * * * * * * * * * * *
             //  bloo line
             // * * * * * * * * * * * * *
-            
+            float ystart2, ystop2;
+            bluePoints = new double[200];
+            for (int i = 0; i < bluePoints.length; i++) {
+                bluePoints[i] = 0; // fill with 0
+            }
+            bluePoints[50] = 1;
+            for (int i = 50; i < 151; i++){
+                bluePoints[i] = 1-(((float)i-50)/100); // fill with 2
+            }
+            for (int i = 0; i < bluePoints.length - 1; i++) {
+                ystart2 = (float) bluePoints[i] * -drawScale + height/3;
+                ystop2 = (float) bluePoints [i+1] * -drawScale + height/3;
+
+                canvas.drawLine(i, ystart2, i+1, ystop2, blueLine);
+            }
 
         }
 
