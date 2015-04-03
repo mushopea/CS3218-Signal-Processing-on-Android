@@ -91,6 +91,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sg.edu.nus.CS3218ChngXinni.ConvolutionActivity" />
         </activity>
+        <activity
+            android:name=".ConvolutionFreqActivity"
+            android:label="@string/title_activity_convolution_freq"
+            android:parentActivityName=".ConvolutionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sg.edu.nus.CS3218ChngXinni.ConvolutionActivity" />
+        </activity>
     </application>
 
 </manifest>

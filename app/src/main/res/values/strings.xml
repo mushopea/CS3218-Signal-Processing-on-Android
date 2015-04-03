@@ -70,5 +70,6 @@
     <string name="title_activity_spectrogram">SpectrogramActivity</string>
     <string name="title_activity_convolution">ConvolutionActivity</string>
     <string name="title_activity_convolution_time">ConvolutionTimeActivity</string>
+    <string name="title_activity_convolution_freq">ConvolutionFreqActivity</string>
 
 </resources>

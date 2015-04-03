@@ -12,10 +12,10 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.Arrays;
+import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
 
 
-public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceHolder.Callback  {
+public class CSurfaceViewConvolutionFreq extends SurfaceView implements SurfaceHolder.Callback  {
     private Context drawContext;
     public  DrawThread       drawThread;
     private SurfaceHolder    drawSurfaceHolder;
@@ -30,7 +30,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
         }
     };
 
-    public CSurfaceViewConvolutionTime(Context ctx, AttributeSet attributeSet)
+    public CSurfaceViewConvolutionFreq(Context ctx, AttributeSet attributeSet)
     {
         super(ctx, attributeSet);
         drawContext = ctx;
@@ -87,7 +87,9 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
         private SurfaceHolder soundSurfaceHolder;
         private Paint redLine, blueLine;
         private double[] redPoints, bluePoints,
-                multipliedArray;
+                redPointsPadded, bluePointsPadded,
+                redPointsFFTed, bluePointsFFTed,
+                multipliedArray, convolutionMag;
         private int drawScale = 32;
         private static final int FFT_Len = 512;
         private int            soundCanvasHeight = 0;
@@ -181,11 +183,73 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
             }
 
             // * * * * * * * * * * * * *
-            //  convoluted array
+            //  pad the shit with zeros
             // * * * * * * * * * * * * *
-            float ystart5, ystop5;
-            multipliedArray = new double[width];
-            Arrays.fill(multipliedArray, 0);
+            bluePointsPadded = new double[512];
+            redPointsPadded = new double[512];
+            for (int i = 0; i < 512; i++) {
+                bluePointsPadded[i] = 0;
+                redPointsPadded[i] = 0;
+            }
+            for (int i = 0; i < bluePoints.length; i++) {
+                bluePointsPadded[i] = bluePoints[i];
+            }
+            for (int i = 0; i < redPoints.length; i++) {
+                redPointsPadded[i] = redPoints[i];
+            }
+
+            // * * * * * * * * * * * * *
+            //  FFT both arrays
+            // * * * * * * * * * * * * *
+            redPointsFFTed = new double[2 * FFT_Len];
+            bluePointsFFTed = new double[2 * FFT_Len];
+            for (int i = 0; i < FFT_Len; i++) {
+                redPointsFFTed[2 * i] = redPointsPadded[i];
+                bluePointsFFTed[2 * i] = bluePointsPadded[i];
+
+                redPointsFFTed[2 * i + 1] = 0.0;
+                bluePointsFFTed[2 * i + 1] = 0.0;
+            }
+            DoubleFFT_1D fft = new DoubleFFT_1D(FFT_Len);
+            fft.complexForward(redPointsFFTed);
+            fft.complexForward(bluePointsFFTed);
+
+            // * * * * * * * * * * * * *
+            //  mootiply both arrays
+            // * * * * * * * * * * * * *
+            multipliedArray = new double[2 * FFT_Len];
+            for (int i = 0; i < FFT_Len; i++) {
+                double a = redPointsFFTed[2 * i];
+                double b = redPointsFFTed[2 * i + 1];
+                double c = bluePointsFFTed[2 * i];
+                double d = bluePointsFFTed[2 * i + 1];
+
+                multipliedArray[i * 2] = a * c - b * d;
+                multipliedArray[i * 2 + 1] = a * d + b * c;
+            }
+
+            // * * * * * * * * * * * * *
+            // inverse fft the multipled array
+            // * * * * * * * * * * * * *
+            fft.complexInverse(multipliedArray, false);
+
+            convolutionMag = new double[FFT_Len];
+            double mx = -99999;
+            for (int i = 0; i < FFT_Len; i++) {
+                double re = multipliedArray[2 * i];
+                double im = multipliedArray[2 * i + 1];
+                convolutionMag[i] = Math.sqrt(re * re + im * im + 0.001);
+                if (convolutionMag[i] > mx) {
+                    mx = convolutionMag[i];
+                }
+            }
+
+            // normalize
+            for (int i = 0; i < FFT_Len; i++) {
+                convolutionMag[i] = height * 7 / 8 - convolutionMag[i] / mx * 500;
+            }
+
+            mxIntensity = mx;
 
             // * * * * * * * * * * * * *
             // display resultant figure

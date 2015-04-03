@@ -49,7 +49,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
         android:layout_alignRight="@+id/q1"
-        android:layout_alignEnd="@+id/q1" />
+        android:layout_alignEnd="@+id/q1"
+        android:onClick="goToQ2" />
     <info.hoang8f.widget.FButton
         fbutton:buttonColor="@color/color_turquoise"
         fbutton:shadowColor="@color/color_green_sea"
