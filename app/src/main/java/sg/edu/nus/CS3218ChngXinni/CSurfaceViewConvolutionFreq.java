@@ -224,8 +224,8 @@ public class CSurfaceViewConvolutionFreq extends SurfaceView implements SurfaceH
                 double c = bluePointsFFTed[2 * i];
                 double d = bluePointsFFTed[2 * i + 1];
 
-                multipliedArray[i * 2] = a * c - b * d;
-                multipliedArray[i * 2 + 1] = a * d + b * c;
+                multipliedArray[2 * i] = a * c - b * d;
+                multipliedArray[2 * i + 1] = a * d + b * c;
             }
 
             // * * * * * * * * * * * * *

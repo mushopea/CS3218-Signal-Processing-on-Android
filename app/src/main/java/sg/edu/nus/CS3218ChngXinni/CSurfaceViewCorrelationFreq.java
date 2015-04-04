@@ -219,19 +219,20 @@ public class CSurfaceViewCorrelationFreq extends SurfaceView implements SurfaceH
             // * * * * * * * * * * * * *
             multipliedArray = new double[2 * FFT_Len];
             for (int i = 0; i < FFT_Len; i++) {
-                double a = redPointsFFTed[2 * i];
-                double b = redPointsFFTed[2 * i + 1];
-                double c = bluePointsFFTed[2 * i];
-                double d = bluePointsFFTed[2 * i + 1];
+                double a = redPointsFFTed[2 * i]; // real
+                double b = -redPointsFFTed[2 * i + 1]; // im
+                double c = bluePointsFFTed[2 * i]; // real
+                double d = bluePointsFFTed[2 * i + 1]; // im
 
-                multipliedArray[i * 2] = a * c - b * d;
-                multipliedArray[i * 2 + 1] = a * d + b * c;
+                multipliedArray[2 * i] = a * c - b * d; // conjugate
+                multipliedArray[2 * i + 1] = a * d + b * c;
             }
 
             // * * * * * * * * * * * * *
             // inverse fft the multipled array
             // * * * * * * * * * * * * *
             fft.complexInverse(multipliedArray, false);
+            correlationMag = multipliedArray;
 
             correlationMag = new double[FFT_Len];
             double mx = -99999;
@@ -246,7 +247,7 @@ public class CSurfaceViewCorrelationFreq extends SurfaceView implements SurfaceH
 
             // normalize
             for (int i = 0; i < FFT_Len; i++) {
-                correlationMag[i] = height * 7 / 8 - correlationMag[i] / mx * 500;
+                correlationMag[i] = height * 5 / 8 + correlationMag[i] / mx * 100;
             }
 
             mxIntensity = mx;
@@ -286,7 +287,7 @@ public class CSurfaceViewCorrelationFreq extends SurfaceView implements SurfaceH
                             width = localCanvas.getWidth();
                             doDraw(localCanvas);
                             rectPos += 1;
-                            if (rectPos + bluePoints.length >= 800)
+                            if (rectPos + bluePoints.length >= width)
                                 rectPos = 0;
                         }
                     }
