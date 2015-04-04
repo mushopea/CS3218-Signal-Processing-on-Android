@@ -99,6 +99,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sg.edu.nus.CS3218ChngXinni.ConvolutionActivity" />
         </activity>
+        <activity
+            android:name=".CSurfaceViewCorrelationTime"
+            android:label="@string/title_activity_csurface_view_correlation_time" >
+        </activity>
+        <activity
+            android:name=".CorrelationTimeActivity"
+            android:label="@string/title_activity_correlation_time"
+            android:parentActivityName=".ConvolutionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sg.edu.nus.CS3218ChngXinni.ConvolutionActivity" />
+        </activity>
+        <activity
+            android:name=".CorrelationFreqActivity"
+            android:label="@string/title_activity_correlation_freq"
+            android:parentActivityName=".ConvolutionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sg.edu.nus.CS3218ChngXinni.ConvolutionActivity" />
+        </activity>
     </application>
 
 </manifest>

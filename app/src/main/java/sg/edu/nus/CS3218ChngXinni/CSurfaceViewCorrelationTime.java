@@ -15,7 +15,7 @@ import android.view.SurfaceView;
 import java.util.Arrays;
 
 
-public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceHolder.Callback  {
+public class CSurfaceViewCorrelationTime extends SurfaceView implements SurfaceHolder.Callback  {
     private Context drawContext;
     public  DrawThread       drawThread;
     private SurfaceHolder    drawSurfaceHolder;
@@ -30,7 +30,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
         }
     };
 
-    public CSurfaceViewConvolutionTime(Context ctx, AttributeSet attributeSet)
+    public CSurfaceViewCorrelationTime(Context ctx, AttributeSet attributeSet)
     {
         super(ctx, attributeSet);
         drawContext = ctx;
@@ -86,8 +86,8 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
         private Bitmap soundBackgroundImage;
         private SurfaceHolder soundSurfaceHolder;
         private Paint redLine, blueLine;
-        private double[] redPoints, bluePoints, flippedKernel, redPointsPadded,
-                convolutedArray;
+        private double[] redPoints, bluePoints, flippedKernel,
+                multipliedArray;
         private int drawScale = 32;
         private static final int FFT_Len = 512;
         private int            soundCanvasHeight = 0;
@@ -114,7 +114,6 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
 
             int height = soundCanvasHeight;
             int width = soundCanvasWidth;
-            int shift = 0;
 
             Paint fillPaint = new Paint();
             fillPaint.setColor(Color.YELLOW);
@@ -136,7 +135,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                 ystart = (float) redPoints[i] * -drawScale + height / 8;
                 ystop = (float) redPoints[i + 1] * -drawScale + height / 8;
 
-                canvas.drawLine(i + shift, ystart, i + 1 + shift, ystop, redLine); // draw red line
+                canvas.drawLine(i, ystart, i + 1, ystop, redLine); // draw red line
             }
 
             // * * * * * * * * * * * * *
@@ -155,7 +154,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                 ystart2 = (float) bluePoints[i] * -drawScale + height / 6;
                 ystop2 = (float) bluePoints[i + 1] * -drawScale + height / 6;
 
-                canvas.drawLine(i + shift, ystart2, i + 1 + shift, ystop2, blueLine);
+                canvas.drawLine(i, ystart2, i + 1, ystop2, blueLine);
             }
 
 
@@ -167,7 +166,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                 ystart3 = (float) redPoints[i] * -drawScale + height / 3;
                 ystop3 = (float) redPoints[i + 1] * -drawScale + height / 3;
 
-                canvas.drawLine(i + shift, ystart3, i + 1 + shift, ystop3, redLine); // draw red line
+                canvas.drawLine(i, ystart3, i + 1, ystop3, redLine); // draw red line
             }
 
             // * * * * * * * * * * * * *
@@ -178,7 +177,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                 yStart4 = (float) bluePoints[i] * -drawScale + height / 3;
                 ystop4 = (float) bluePoints[i + 1] * -drawScale + height / 3;
 
-                canvas.drawLine(rectPos + i + shift, yStart4, rectPos + i + 1 + shift, ystop4, blueLine);
+                canvas.drawLine(rectPos + i, yStart4, rectPos + i + 1, ystop4, blueLine);
             }
 
             // * * * * * * * * * * * * *
@@ -192,29 +191,25 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
             // * * * * * * * * * * * * *
             //  convoluted array
             // * * * * * * * * * * * * *
-            // define convolution result
-            convolutedArray = new double[width];
-            Arrays.fill(convolutedArray, 0);
-
-            // pad the signal with zeroes so as to read in the entire signal
-            redPointsPadded = new double[width];
-            Arrays.fill(redPointsPadded, 0);
-            for (int i = 0; i < redPoints.length; i++) {
-                redPointsPadded[i] = redPoints[i];
-            }
-
-            for(int t = 0; t < width; t++) {
-                convolutedArray[t] = 0;
+            multipliedArray = new double[width];
+            Arrays.fill(multipliedArray, 0);
+            /*for (int i = 100; i < 300 / 2 + 100 + 200 + 1; i++) {
+                for (int j = 0; j < 200; j++) {
+                    multipliedArray[i] = multipliedArray[i] + flippedKernel[j] * redPoints[i - 200 + 1 + j];
+                }
+            }*/
+            for(int t = 0; t < 300; t++) {
+                multipliedArray[t] = 0;
                 for (int i = 0; i < 200; i++) {
                     if (t - i < 0) {
-                    } else {
-                        convolutedArray[t] += redPointsPadded[t - i] * bluePoints[i];
+                        break;
                     }
+                    multipliedArray[t] += redPoints[t - i] * flippedKernel[i];
                 }
             }
 
             for (int i = 0; i < rectPos; i++) {
-                canvas.drawLine(i, (float) convolutedArray[i] * -1 + height / 2, i + 1, (float) convolutedArray[i + 1] * -1 + height / 2, redLine);
+                canvas.drawLine(i, (float) multipliedArray[i] * -1 + height / 2, i + 1, (float) multipliedArray[i + 1] * -1 + height / 2, redLine);
             }
         }
 
@@ -239,7 +234,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                             doDraw(localCanvas);
                             rectPos += 1;
                             if (rectPos + bluePoints.length >= 800)
-                                rectPos = 200;
+                                rectPos = 0;
                         }
                     }
                 } finally {

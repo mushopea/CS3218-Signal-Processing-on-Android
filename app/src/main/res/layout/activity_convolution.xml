@@ -72,7 +72,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="goToQ3" />
     <info.hoang8f.widget.FButton
         fbutton:buttonColor="@color/color_amethyst"
         fbutton:shadowColor="@color/color_wisteria"
@@ -94,6 +95,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:onClick="goToQ4" />
 
 </RelativeLayout>

@@ -12,10 +12,10 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.Arrays;
+import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
 
 
-public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceHolder.Callback  {
+public class CSurfaceViewCorrelationFreq extends SurfaceView implements SurfaceHolder.Callback  {
     private Context drawContext;
     public  DrawThread       drawThread;
     private SurfaceHolder    drawSurfaceHolder;
@@ -30,7 +30,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
         }
     };
 
-    public CSurfaceViewConvolutionTime(Context ctx, AttributeSet attributeSet)
+    public CSurfaceViewCorrelationFreq(Context ctx, AttributeSet attributeSet)
     {
         super(ctx, attributeSet);
         drawContext = ctx;
@@ -86,8 +86,10 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
         private Bitmap soundBackgroundImage;
         private SurfaceHolder soundSurfaceHolder;
         private Paint redLine, blueLine;
-        private double[] redPoints, bluePoints, flippedKernel, redPointsPadded,
-                convolutedArray;
+        private double[] redPoints, bluePoints,
+                redPointsPadded, bluePointsPadded,
+                redPointsFFTed, bluePointsFFTed,
+                multipliedArray, correlationMag;
         private int drawScale = 32;
         private static final int FFT_Len = 512;
         private int            soundCanvasHeight = 0;
@@ -114,7 +116,6 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
 
             int height = soundCanvasHeight;
             int width = soundCanvasWidth;
-            int shift = 0;
 
             Paint fillPaint = new Paint();
             fillPaint.setColor(Color.YELLOW);
@@ -136,7 +137,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                 ystart = (float) redPoints[i] * -drawScale + height / 8;
                 ystop = (float) redPoints[i + 1] * -drawScale + height / 8;
 
-                canvas.drawLine(i + shift, ystart, i + 1 + shift, ystop, redLine); // draw red line
+                canvas.drawLine(i, ystart, i + 1, ystop, redLine); // draw red line
             }
 
             // * * * * * * * * * * * * *
@@ -155,7 +156,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                 ystart2 = (float) bluePoints[i] * -drawScale + height / 6;
                 ystop2 = (float) bluePoints[i + 1] * -drawScale + height / 6;
 
-                canvas.drawLine(i + shift, ystart2, i + 1 + shift, ystop2, blueLine);
+                canvas.drawLine(i, ystart2, i + 1, ystop2, blueLine);
             }
 
 
@@ -167,7 +168,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                 ystart3 = (float) redPoints[i] * -drawScale + height / 3;
                 ystop3 = (float) redPoints[i + 1] * -drawScale + height / 3;
 
-                canvas.drawLine(i + shift, ystart3, i + 1 + shift, ystop3, redLine); // draw red line
+                canvas.drawLine(i, ystart3, i + 1, ystop3, redLine); // draw red line
             }
 
             // * * * * * * * * * * * * *
@@ -178,46 +179,93 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                 yStart4 = (float) bluePoints[i] * -drawScale + height / 3;
                 ystop4 = (float) bluePoints[i + 1] * -drawScale + height / 3;
 
-                canvas.drawLine(rectPos + i + shift, yStart4, rectPos + i + 1 + shift, ystop4, blueLine);
+                canvas.drawLine(rectPos + i, yStart4, rectPos + i + 1, ystop4, blueLine);
             }
 
             // * * * * * * * * * * * * *
-            //  flipped kernel
+            //  pad the shit with zeros
             // * * * * * * * * * * * * *
-            flippedKernel = new double[200];
-            for (int i = 0; i < 200; i++) {
-                flippedKernel[i] = bluePoints[200 - i - 1];
+            bluePointsPadded = new double[512];
+            redPointsPadded = new double[512];
+            for (int i = 0; i < 512; i++) {
+                bluePointsPadded[i] = 0;
+                redPointsPadded[i] = 0;
             }
-
-            // * * * * * * * * * * * * *
-            //  convoluted array
-            // * * * * * * * * * * * * *
-            // define convolution result
-            convolutedArray = new double[width];
-            Arrays.fill(convolutedArray, 0);
-
-            // pad the signal with zeroes so as to read in the entire signal
-            redPointsPadded = new double[width];
-            Arrays.fill(redPointsPadded, 0);
+            for (int i = 0; i < bluePoints.length; i++) {
+                bluePointsPadded[i] = bluePoints[i];
+            }
             for (int i = 0; i < redPoints.length; i++) {
                 redPointsPadded[i] = redPoints[i];
             }
 
-            for(int t = 0; t < width; t++) {
-                convolutedArray[t] = 0;
-                for (int i = 0; i < 200; i++) {
-                    if (t - i < 0) {
-                    } else {
-                        convolutedArray[t] += redPointsPadded[t - i] * bluePoints[i];
-                    }
+            // * * * * * * * * * * * * *
+            //  FFT both arrays
+            // * * * * * * * * * * * * *
+            redPointsFFTed = new double[2 * FFT_Len];
+            bluePointsFFTed = new double[2 * FFT_Len];
+            for (int i = 0; i < FFT_Len; i++) {
+                redPointsFFTed[2 * i] = redPointsPadded[i];
+                bluePointsFFTed[2 * i] = bluePointsPadded[i];
+
+                redPointsFFTed[2 * i + 1] = 0.0;
+                bluePointsFFTed[2 * i + 1] = 0.0;
+            }
+            DoubleFFT_1D fft = new DoubleFFT_1D(FFT_Len);
+            fft.complexForward(redPointsFFTed);
+            fft.complexForward(bluePointsFFTed);
+
+            // * * * * * * * * * * * * *
+            //  mootiply both arrays
+            // * * * * * * * * * * * * *
+            multipliedArray = new double[2 * FFT_Len];
+            for (int i = 0; i < FFT_Len; i++) {
+                double a = redPointsFFTed[2 * i];
+                double b = redPointsFFTed[2 * i + 1];
+                double c = bluePointsFFTed[2 * i];
+                double d = bluePointsFFTed[2 * i + 1];
+
+                multipliedArray[i * 2] = a * c - b * d;
+                multipliedArray[i * 2 + 1] = a * d + b * c;
+            }
+
+            // * * * * * * * * * * * * *
+            // inverse fft the multipled array
+            // * * * * * * * * * * * * *
+            fft.complexInverse(multipliedArray, false);
+
+            correlationMag = new double[FFT_Len];
+            double mx = -99999;
+            for (int i = 0; i < FFT_Len; i++) {
+                double re = multipliedArray[2 * i];
+                double im = multipliedArray[2 * i + 1];
+                correlationMag[i] = Math.sqrt(re * re + im * im + 0.001);
+                if (correlationMag[i] > mx) {
+                    mx = correlationMag[i];
                 }
             }
 
-            for (int i = 0; i < rectPos; i++) {
-                canvas.drawLine(i, (float) convolutedArray[i] * -1 + height / 2, i + 1, (float) convolutedArray[i + 1] * -1 + height / 2, redLine);
+            // normalize
+            for (int i = 0; i < FFT_Len; i++) {
+                correlationMag[i] = height * 7 / 8 - correlationMag[i] / mx * 500;
+            }
+
+            mxIntensity = mx;
+
+            // * * * * * * * * * * * * *
+            // display resultant figure
+            // * * * * * * * * * * * * *
+            int maxBoundary = 0;
+            if (rectPos > FFT_Len - 1) {
+                maxBoundary = FFT_Len - 1;
+            } else {
+                maxBoundary = rectPos;
+            }
+            for (int i = 0; i < maxBoundary; i++) {
+                float yStart = (float) correlationMag[i];
+                float yStop = (float) correlationMag[i + 1];
+                canvas.drawLine(i, yStart, i + 1, yStop, redLine);
             }
         }
-
 
         public void setSurfaceSize(int canvasWidth, int canvasHeight) {
             synchronized (soundSurfaceHolder) {
@@ -239,7 +287,7 @@ public class CSurfaceViewConvolutionTime extends SurfaceView implements SurfaceH
                             doDraw(localCanvas);
                             rectPos += 1;
                             if (rectPos + bluePoints.length >= 800)
-                                rectPos = 200;
+                                rectPos = 0;
                         }
                     }
                 } finally {

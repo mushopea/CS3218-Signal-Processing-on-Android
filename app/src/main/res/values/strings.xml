@@ -71,5 +71,9 @@
     <string name="title_activity_convolution">ConvolutionActivity</string>
     <string name="title_activity_convolution_time">ConvolutionTimeActivity</string>
     <string name="title_activity_convolution_freq">ConvolutionFreqActivity</string>
+    <string name="title_activity_csurface_view_correlation_time">CSurfaceViewCorrelationTime
+    </string>
+    <string name="title_activity_correlation_time">CorrelationTimeActivity</string>
+    <string name="title_activity_correlation_freq">CorrelationFreqActivity</string>
 
 </resources>

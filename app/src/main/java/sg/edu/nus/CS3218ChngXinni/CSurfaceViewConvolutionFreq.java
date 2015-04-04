@@ -232,6 +232,7 @@ public class CSurfaceViewConvolutionFreq extends SurfaceView implements SurfaceH
             // inverse fft the multipled array
             // * * * * * * * * * * * * *
             fft.complexInverse(multipliedArray, false);
+            convolutionMag = multipliedArray;
 
             convolutionMag = new double[FFT_Len];
             double mx = -99999;
@@ -246,7 +247,7 @@ public class CSurfaceViewConvolutionFreq extends SurfaceView implements SurfaceH
 
             // normalize
             for (int i = 0; i < FFT_Len; i++) {
-                convolutionMag[i] = height * 7 / 8 - convolutionMag[i] / mx * 500;
+                convolutionMag[i] = height * 5 / 8 - convolutionMag[i] / mx * 100;
             }
 
             mxIntensity = mx;
