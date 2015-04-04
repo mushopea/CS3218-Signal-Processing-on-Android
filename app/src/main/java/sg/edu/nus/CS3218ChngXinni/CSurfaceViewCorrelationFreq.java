@@ -185,9 +185,9 @@ public class CSurfaceViewCorrelationFreq extends SurfaceView implements SurfaceH
             // * * * * * * * * * * * * *
             //  pad the shit with zeros
             // * * * * * * * * * * * * *
-            bluePointsPadded = new double[512];
-            redPointsPadded = new double[512];
-            for (int i = 0; i < 512; i++) {
+            bluePointsPadded = new double[FFT_Len];
+            redPointsPadded = new double[FFT_Len];
+            for (int i = 0; i < FFT_Len; i++) {
                 bluePointsPadded[i] = 0;
                 redPointsPadded[i] = 0;
             }
@@ -220,9 +220,9 @@ public class CSurfaceViewCorrelationFreq extends SurfaceView implements SurfaceH
             multipliedArray = new double[2 * FFT_Len];
             for (int i = 0; i < FFT_Len; i++) {
                 double a = redPointsFFTed[2 * i]; // real
-                double b = -redPointsFFTed[2 * i + 1]; // im
+                double b = redPointsFFTed[2 * i + 1]; // im
                 double c = bluePointsFFTed[2 * i]; // real
-                double d = bluePointsFFTed[2 * i + 1]; // im
+                double d = -bluePointsFFTed[2 * i + 1]; // im
 
                 multipliedArray[2 * i] = a * c - b * d; // conjugate
                 multipliedArray[2 * i + 1] = a * d + b * c;
@@ -239,7 +239,7 @@ public class CSurfaceViewCorrelationFreq extends SurfaceView implements SurfaceH
             for (int i = 0; i < FFT_Len; i++) {
                 double re = multipliedArray[2 * i];
                 double im = multipliedArray[2 * i + 1];
-                correlationMag[i] = Math.sqrt(re * re + im * im + 0.001);
+                correlationMag[i] = Math.sqrt(re * re + im * im);
                 if (correlationMag[i] > mx) {
                     mx = correlationMag[i];
                 }
